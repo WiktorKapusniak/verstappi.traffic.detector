@@ -23,7 +23,13 @@ def login():
 
 @app.route('/getUserData', methods=['GET'])
 def getUserData():
-    return jsonify({"AccessLevel":"User","Username":"Jelen"})
+    print(keycloak_config.keycloak_openid.well_known())
+    try:
+        token = request.headers.get("Authorization").split(" ")[1]
+        userinfo = keycloak_config.keycloak_openid.userinfo(token)
+        return jsonify({"UserData":userinfo})
+    except:
+        return jsonify({"message":"Nieprawidlowy token"})
 
 @app.route('/getDBData',methods=["GET"])
 def getDayData():

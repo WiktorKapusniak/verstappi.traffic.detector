@@ -7,10 +7,10 @@ keycloak_admin = KeycloakAdmin(
     realm_name="RealtimeTraffic",
     client_id="ClientNo01",
     client_secret_key="pbDHzsyKV0nNVh1VzzVRcCnP7R64FX28",
-    verify=True)
+    verify=False)
 
 keycloak_openid = KeycloakOpenID(
-    server_url="http://localhost:8080/auth/",
+    server_url="http://localhost:8080/",
     client_id="ClientNo01",
     realm_name="RealtimeTraffic",
     client_secret_key="pbDHzsyKV0nNVh1VzzVRcCnP7R64FX28"
