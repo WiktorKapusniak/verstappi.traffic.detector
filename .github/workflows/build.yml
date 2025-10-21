@@ -1,0 +1,22 @@
+name: Build and push docker image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    env:
+      END: ${{ matrix.end }}
+      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+      DEPLOYMENT: prod
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        end: ['frontend', 'backend']
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Make
+        run: make build
