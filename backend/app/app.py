@@ -5,6 +5,10 @@ import vehicle_detection
 app = Flask(__name__)
 CORS(app)
 
+
+
+# TODO rozdzielic kazdy endpoint do innego pliku
+
 @app.route('/message', methods=['GET'])
 def message():
     return jsonify({"message": "Don't honk in the woods"}), 200
