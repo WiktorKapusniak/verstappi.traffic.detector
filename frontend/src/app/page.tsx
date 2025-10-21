@@ -1,5 +1,6 @@
+'use client'
 import Image from "next/image";
-
+import Main from "@/app/components/main"
 export default function Home() {
-  return <div>Nie trab w lesie!</div>;
+  return (<><Main/></>);
 }
