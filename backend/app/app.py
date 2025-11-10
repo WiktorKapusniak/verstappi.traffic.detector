@@ -8,7 +8,6 @@ CORS(app)
 
 
 # TODO rozdzielic kazdy endpoint do innego pliku
-# TODO odhashowanie hasel
 
 @app.route('/message', methods=['GET'])
 def message():
@@ -24,9 +23,9 @@ def login():
         user_info = keycloak_config.keycloak_openid.userinfo(token['access_token'])
         user_id = keycloak_config.keycloak_admin.get_user_id(username)
         realm_roles = keycloak_config.keycloak_admin.get_realm_roles_of_user(user_id)
-        return jsonify({"message":"Witaj, "+username,"AccessLevel":realm_roles[1]['name'],"token":token,"status":200})
+        return jsonify({"message":"Witaj, "+username,"AccessLevel":realm_roles[1]['name'],"token":token}),200
     except:
-        return jsonify({"error":"Wrong credentials","status":500})
+        return jsonify({"error":"Wrong credentials"}),500
 
 @app.route('/getUserData', methods=['GET'])
 def getUserData():
