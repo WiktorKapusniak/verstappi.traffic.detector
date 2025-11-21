@@ -1,7 +1,5 @@
-import Image from "next/image";
-import { stringify } from "querystring";
-import { useState, useEffect } from "react";
-//bcrypt todo, hashowanie hasel
+import { useState } from "react";
+import axios from "axios";
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,13 +8,13 @@ export default function Login() {
       username: username,
       password: password
     }
-    const login_options = {
-      method: "POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify(data)
-    }
-    console.log(login_options.body)
-    const fetcher = fetch("http://127.0.0.1:5000/login", login_options).then(res => res.json()).then(res => console.log(res))
+    const login_post = axios.post("http://127.0.0.1:5000/login", data).then((res) => {
+      if(res.status==200){
+        alert("login ok")
+      }
+    }).catch(()=>{
+      alert("login failed")
+    }) // POST do backendu z loginem i haslem uzytkownika, bez szyfrowania
   }
 
   return (
