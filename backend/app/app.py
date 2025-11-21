@@ -1,7 +1,5 @@
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
-import keycloak_config
-import vehicle_detection
 app = Flask(__name__)
 CORS(app)
 
@@ -12,30 +10,6 @@ CORS(app)
 @app.route('/message', methods=['GET'])
 def message():
     return jsonify({"message": "Don't honk in the woods"}), 200
-
-@app.route('/login',methods=['POST'])
-def login():
-    try:
-        data = request.json
-        username = data.get("username")
-        password = data.get("password")
-        token = keycloak_config.keycloak_openid.token(username, password)
-        user_info = keycloak_config.keycloak_openid.userinfo(token['access_token'])
-        user_id = keycloak_config.keycloak_admin.get_user_id(username)
-        realm_roles = keycloak_config.keycloak_admin.get_realm_roles_of_user(user_id)
-        return jsonify({"message":"Witaj, "+username,"AccessLevel":realm_roles[1]['name'],"token":token}),200
-    except:
-        return jsonify({"error":"Wrong credentials"}),500
-
-@app.route('/getUserData', methods=['GET'])
-def getUserData():
-    print(keycloak_config.keycloak_openid.well_known())
-    try:
-        token = request.headers.get("Authorization").split(" ")[1]
-        userinfo = keycloak_config.keycloak_openid.userinfo(token)
-        return jsonify({"UserData":userinfo})
-    except:
-        return jsonify({"message":"Nieprawidlowy token"})
 
 @app.route('/getDBData',methods=["GET"])
 def getDayData():
