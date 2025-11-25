@@ -9,7 +9,7 @@ build:
 
 .PHONY: pull
 pull:
-    @ssh -i "$(SSH_KEY_PATH)" ubuntu@vps-fddfb9a0.vps.ovh.net \
+	@ssh -i "$(SSH_KEY_PATH)" ubuntu@vps-fddfb9a0.vps.ovh.net \
         'cd repo && git pull && kubectl apply -f $(COMPONENT)/deployments/ && kubectl rollout restart deployment/$(COMPONENT)-deployment'
 
 .PHONY: deploy
