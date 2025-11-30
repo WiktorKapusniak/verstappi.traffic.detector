@@ -1,6 +1,13 @@
-# TEAM_PROJEKT_KKK
+## Pushing to dev
 
-DONT HONK IN THE WOODS
+Before running those commands make sure that you change used image to dev from prod in `(backend/frontend)/deployments/deployment.yml`
 
-## Diabetes
-## AEROPLANY PTASZORY ITP ITD WIDEOPREZENTACJE
+```
+./run-makefile.sh (frontend/backend)
+
+# if change in k8s deployment file:
+kubectl apply -f deployment
+
+# if not:
+kubectl rollout restart deployment (backend/frontend)-deployment
+```
