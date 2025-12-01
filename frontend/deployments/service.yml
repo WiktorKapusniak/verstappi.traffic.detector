@@ -7,8 +7,9 @@ metadata:
 spec:
   selector:
     app: team-projekt-kkk-frontend
+  type: NodePort
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-  type: LoadBalancer
+      nodePort: 30000
