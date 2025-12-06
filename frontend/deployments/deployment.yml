@@ -33,11 +33,14 @@ spec:
             allowPrivilegeEscalation: false
           ports:
             - containerPort: 8080
+            - containerPort: 8443
           env:
             - name: KC_BOOTSTRAP_ADMIN_USERNAME
               value: "admin"
             - name: KC_BOOTSTRAP_ADMIN_PASSWORD
               value: "admin"
+            - name: KC_PROXY
+              value: "edge"
           volumeMounts:
             - name: keycloak-persistent-storage
               mountPath: /opt/keycloak/data
