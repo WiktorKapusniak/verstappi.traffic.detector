@@ -8,12 +8,13 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
-      - keycloak.example.com
+      - localhost
     secretName: keycloak-tls
   rules:
-  - host: keycloak.example.com
+  - host: localhost
     http:
       paths:
       - path: /
