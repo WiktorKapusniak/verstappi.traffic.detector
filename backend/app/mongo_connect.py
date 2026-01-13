@@ -1,21 +1,35 @@
 from mongoengine import connect
-from mongo_models import cars
-
+from mongo_models import traffic
+from datetime import datetime, timezone
+from ownLogger import saveLog
 connect(
     db="mydb",
     host="mongodb://localhost:27017/mydb"
 )
 
+service = {
+    'name': "MONGO",
+    'info': "INFO",
+    'error' : "ERROR",
+    'warning': "WARNING"
+}
 
-def saveToDataBase(choice): # choice 1 - wybór zapisu dziesięciominutowego, choice 2 - wybór zapisu godzinnego
-    if choice == 1:
+def getTime():
+    time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return time
+
+def saveToDataBase(amount,transId):
+    try:
+        data = traffic.TrafficWithTimeStamp(time=getTime(),amount=amount)
+        data.save()
+        saveLog(service['name'],service['info'],"saved data to database",transId)
+    except Exception as e:
+        saveLog(service['name'],service['error'],str(e),transId)
         
-
-
-# # zapis
-# traffic = cars.Traffic(time="12.09.00", amount=12)
-# traffic.save()
-
-# # odczyt
-# traffic = cars.Traffic.objects(time="12.09.00").first()
-# print(traffic.amount)
+def readFromDataBase(transId):
+    try:
+        data = traffic.TrafficWithTimeStamp.objects()
+        saveLog(service['name'],service['info'],"granting database data",transId)
+        return data
+    except Exception as e:
+        saveLog(service['name'],service['error'],str(e),transId)

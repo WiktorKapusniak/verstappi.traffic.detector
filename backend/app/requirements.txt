@@ -2,3 +2,7 @@ flask
 flask-cors
 requests
 mongoengine
+uuid6
+PyJWT
+cryptography
+requests
