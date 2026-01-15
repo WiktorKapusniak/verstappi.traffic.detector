@@ -3,7 +3,7 @@ from mongo_models import traffic
 from datetime import datetime, timezone
 from ownLogger import saveLog
 connect(
-    db="mydb",
+    db="mongo",
     host="mongodb://localhost:27017/mydb"
 )
 
