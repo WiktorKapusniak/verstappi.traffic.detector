@@ -1,11 +1,11 @@
-import datetime
+from datetime import datetime
 import os
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from mongo_connect import readFromDataBase, mongo_connect
 from ownLogger import saveLog
 from uuid6 import uuid7
-from mongo_models import traffic
+from mongo_models import traffic as traffic_model
 
 app = Flask(__name__)
 CORS(app)
@@ -45,8 +45,8 @@ def post_traffic():
             saveLog(service['name'], service['error'], f"/traffic missing fields: {missing}", tx_id)
             return jsonify({"error": "Missing fields", "missing": missing}), 400
 
-        data = traffic.Traffic(
-            time=str(datetime.fromisoformat(payload["timeStamp"])),
+        data = traffic_model.Traffic(
+            time=datetime.fromisoformat(payload["timeStamp"]),
             carsIn=int(payload["carIn"]),
             carsOut=int(payload["carOut"]),
             motorcyclesIn=int(payload["motorcycleIn"]),
