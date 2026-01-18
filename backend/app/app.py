@@ -60,7 +60,7 @@ def traffic():
         return jsonify({"status": "ok"}), 201
     except Exception as e:
         saveLog(service['name'], service['error'], str(e), tx_id)
-        return jsonify({f"error": "An error occured {e}"}), 500
+        return jsonify({"error": f"An error occured {e}"}), 500
 
 @app.route('/message', methods=['GET'])
 def message():
@@ -70,7 +70,7 @@ def message():
         return jsonify({"message": "Don't honk in the woods"}), 200
     except Exception as e:
         saveLog(service['name'],service['error'],f'/message not granted',tx_id)
-        return jsonify({f"error": "An error occured {e}"}), 500
+        return jsonify({"error": f"An error occured {e}"}), 500
 @app.route('/getDataBaseData',methods=["GET"])
 def getData():
     tx_id = str(uuid7())
@@ -86,7 +86,7 @@ def getData():
         return jsonify({"data":dataBaseData})
     except Exception as e:
         saveLog(service['name'],service['error'],str(e),tx_id)
-        return jsonify({f"error": "An error occured {e}"}), 500
+        return jsonify({"error": f"An error occured {e}"}), 500
     
 @app.route('/dhitw',methods=['GET'])
 def dhitw():
