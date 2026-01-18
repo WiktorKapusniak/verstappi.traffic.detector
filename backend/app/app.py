@@ -45,18 +45,8 @@ def post_traffic():
             saveLog(service['name'], service['error'], f"/traffic missing fields: {missing}", tx_id)
             return jsonify({"error": "Missing fields", "missing": missing}), 400
 
-        raw_timestamp = payload["timeStamp"]
-        if isinstance(raw_timestamp, (int, float)):
-            timestamp_value = raw_timestamp / 1000 if raw_timestamp > 1e11 else raw_timestamp
-            parsed_time = datetime.fromtimestamp(timestamp_value)
-        elif isinstance(raw_timestamp, str):
-            timestamp_str = raw_timestamp.replace("Z", "+00:00") if raw_timestamp.endswith("Z") else raw_timestamp
-            parsed_time = datetime.fromisoformat(timestamp_str)
-        else:
-            raise ValueError("timeStamp must be a string or number")
-
         data = traffic_model.Traffic(
-            time=parsed_time,
+            time=datetime.fromisoformat(payload["timeStamp"]),
             carsIn=int(payload["carIn"]),
             carsOut=int(payload["carOut"]),
             motorcyclesIn=int(payload["motorcycleIn"]),
