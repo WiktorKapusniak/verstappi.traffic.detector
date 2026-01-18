@@ -1,3 +1,4 @@
+import datetime
 import os
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
@@ -45,15 +46,15 @@ def traffic():
             return jsonify({"error": "Missing fields", "missing": missing}), 400
 
         data = traffic.Traffic(
-            time=str(payload["timeStamp"]),
-            carIn=int(payload["carIn"]),
-            carOut=int(payload["carOut"]),
-            motorcycleIn=int(payload["motorcycleIn"]),
-            motorcycleOut=int(payload["motorcycleOut"]),
-            busIn=int(payload["busIn"]),
-            busOut=int(payload["busOut"]),
-            truckIn=int(payload["truckIn"]),
-            truckOut=int(payload["truckOut"]),
+            time=str(datetime.fromisoformat(payload["timeStamp"])),
+            carsIn=int(payload["carIn"]),
+            carsOut=int(payload["carOut"]),
+            motorcyclesIn=int(payload["motorcycleIn"]),
+            motorcyclesOut=int(payload["motorcycleOut"]),
+            busesIn=int(payload["busIn"]),
+            busesOut=int(payload["busOut"]),
+            trucksIn=int(payload["truckIn"]),
+            trucksOut=int(payload["truckOut"]),
         )
         data.save()
         saveLog(service['name'], service['info'], "/traffic saved", tx_id)
