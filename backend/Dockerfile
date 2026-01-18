@@ -21,3 +21,4 @@ COPY --from=builder /install /usr/local
 COPY --from=builder /app ./
 
 CMD ["python", "app.py"]
+    
